@@ -1,6 +1,8 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Денис Захарченко](https://up.htmlacademy.ru/react/9/user/171944).
+
+* Студент: [Денис Захарченко](https://htmlacademy.ru/profile/id171944).
+
 * Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
