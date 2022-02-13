@@ -4,21 +4,21 @@ type MainPageProps = {
   cardCount:number,
 };
 
-function renderCard (count:number) {
-  const cardArr = [];
-
-  for(let i = 0; i < count; i++) {
-    cardArr.push(<PlaceCard key={i} />);
-  }
-
-  if(cardArr.length) {
-    return cardArr;
-  }
-  return null;
-}
-
 function MainPage(props:MainPageProps): JSX.Element {
   const {cardCount} = props;
+
+  function renderCard (count:number) {
+    const cards = [];
+
+    for(let i = 0; i < count; i++) {
+      cards.push(<PlaceCard key={i} />);
+    }
+
+    if(cards.length) {
+      return cards;
+    }
+    return null;
+  }
 
   return (
     <div className="page page--gray page--main">

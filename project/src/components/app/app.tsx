@@ -5,7 +5,9 @@ type AppProps = {
 };
 
 function App(props:AppProps): JSX.Element {
-  return <MainPage cardCount={props.cardCount} />;
+  return (
+    <MainPage cardCount={props.cardCount} />
+  );
 }
 
 export default App;
