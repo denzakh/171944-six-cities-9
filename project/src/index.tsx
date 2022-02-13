@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import MainPage from './components/main-page/main-page';
+
+const CARD_COUNT = 5;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App>
-      <MainPage />
-    </App>
+    <App cardCount={CARD_COUNT} />
   </React.StrictMode>,
   document.getElementById('root'));

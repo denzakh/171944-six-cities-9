@@ -1,11 +1,11 @@
-import {ReactNode} from 'react';
+import MainPage from '../main-page/main-page';
 
-type AppPropsWithChildren = {
-  children?: ReactNode;
+type AppProps = {
+  cardCount:number
 };
 
-function App(props:AppPropsWithChildren): JSX.Element {
-  return <div>{props.children}</div>;
+function App(props:AppProps): JSX.Element {
+  return <MainPage cardCount={props.cardCount} />;
 }
 
 export default App;
