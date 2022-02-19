@@ -1,4 +1,11 @@
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../tools/constants';
 import MainPage from '../main-page/main-page';
+import Page404 from '../page404/page404';
+import LoginPage from '../login-page/login-page';
+import FavoritesPage from '../favorites-page/favorites-page';
+import RoomPage from '../room-page/room-page';
+import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
   cardCount:number
@@ -6,7 +13,15 @@ type AppProps = {
 
 function App(props:AppProps): JSX.Element {
   return (
-    <MainPage cardCount={props.cardCount} />
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<MainPage cardCount={props.cardCount} />} />
+        <Route path={AppRoute.Login} element={<LoginPage />} />
+        <Route path={AppRoute.Room} element={<RoomPage />} />
+        <Route path={AppRoute.Favorites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><FavoritesPage/></PrivateRoute>} />
+        <Route path='*' element={<Page404 />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
