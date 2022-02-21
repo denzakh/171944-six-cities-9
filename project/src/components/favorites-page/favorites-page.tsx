@@ -1,3 +1,5 @@
+import NavUser from '../nav-user/nav-user';
+
 function FavoritesPage(): JSX.Element {
   return (
     <div className="page">
@@ -9,22 +11,7 @@ function FavoritesPage(): JSX.Element {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
               </a>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <NavUser />
           </div>
         </div>
       </header>
@@ -48,7 +35,7 @@ function FavoritesPage(): JSX.Element {
                     </div>
                     <div className="favorites__image-wrapper place-card__image-wrapper">
                       <a href="#">
-                        <img className="place-card__image" src="img/apartment-small-03.jpg" width={150} height={110} alt="Place image" />
+                        <img className="place-card__image" src="img/apartment-small-03.jpg" width={150} height={110} alt="Place" />
                       </a>
                     </div>
                     <div className="favorites__card-info place-card__info">
@@ -79,7 +66,7 @@ function FavoritesPage(): JSX.Element {
                   <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
                       <a href="#">
-                        <img className="place-card__image" src="img/room-small.jpg" width={150} height={110} alt="Place image" />
+                        <img className="place-card__image" src="img/room-small.jpg" width={150} height={110} alt="Place" />
                       </a>
                     </div>
                     <div className="favorites__card-info place-card__info">
@@ -121,7 +108,7 @@ function FavoritesPage(): JSX.Element {
                   <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
                       <a href="#">
-                        <img className="place-card__image" src="img/apartment-small-04.jpg" width={150} height={110} alt="Place image" />
+                        <img className="place-card__image" src="img/apartment-small-04.jpg" width={150} height={110} alt="Place" />
                       </a>
                     </div>
                     <div className="favorites__card-info place-card__info">
