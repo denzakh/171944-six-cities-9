@@ -17,8 +17,15 @@ function App(props:AppProps): JSX.Element {
       <Routes>
         <Route index element={<MainPage cardCount={props.cardCount} />} />
         <Route path={AppRoute.Login} element={<LoginPage />} />
-        <Route path={AppRoute.Room} element={<RoomPage />} />
-        <Route path={AppRoute.Favorites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><FavoritesPage/></PrivateRoute>} />
+        <Route path={AppRoute.RoomRoute} element={<RoomPage />} />
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <FavoritesPage/>
+            </PrivateRoute>
+          }
+        />
         <Route path='*' element={<Page404 />} />
       </Routes>
     </BrowserRouter>
