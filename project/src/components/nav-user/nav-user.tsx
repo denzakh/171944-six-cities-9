@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {AppRoute} from '../../tools/constants';
 
 function NavUser(): JSX.Element {
-
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -14,7 +13,7 @@ function NavUser(): JSX.Element {
           </Link>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="#">
+          <a className="header__nav-link" href="/">
             <span className="header__signout">Sign out</span>
           </a>
         </li>

@@ -1,27 +1,16 @@
-import { Link } from 'react-router-dom';
-import PlaceCard from '../place-card/place-card';
 import NavUser from '../nav-user/nav-user';
-import {AppRoute} from '../../tools/constants';
+import CardList from '../card-list/card-list';
+import OfferType from '../../types/offer';
+import LogoLink from '../logo-link/logo-link';
+import Cities from '../cities/cities';
+
 
 type MainPageProps = {
-  cardCount:number,
-};
+  offers: OfferType[],
+}
 
 function MainPage(props:MainPageProps): JSX.Element {
-  const {cardCount} = props;
-
-  function renderCard (count:number) {
-    const cards = [];
-
-    for(let i = 0; i < count; i++) {
-      cards.push(<PlaceCard key={i} url={`${AppRoute.Room}/${i}`} />);
-    }
-
-    if(cards.length) {
-      return cards;
-    }
-    return null;
-  }
+  const {offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -29,15 +18,7 @@ function MainPage(props:MainPageProps): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to="/" className="header__logo-link header__logo-link--active">
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="6 cities logo"
-                  width={81}
-                  height={41}
-                />
-              </Link>
+              <LogoLink />
             </div>
             <NavUser />
           </div>
@@ -46,40 +27,7 @@ function MainPage(props:MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
+          <Cities />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
@@ -101,9 +49,7 @@ function MainPage(props:MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {renderCard(cardCount)}
-              </div>
+              <CardList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />

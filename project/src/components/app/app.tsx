@@ -6,23 +6,34 @@ import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
 import PrivateRoute from '../private-route/private-route';
+import OfferType from '../../types/offer';
 
 type AppProps = {
-  cardCount:number
-};
+  offers: OfferType[],
+}
 
 function App(props:AppProps): JSX.Element {
+  const {offers} = props;
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<MainPage cardCount={props.cardCount} />} />
+        <Route
+          index element={
+            <MainPage
+              offers={offers}
+            />
+          }
+        />
         <Route path={AppRoute.Login} element={<LoginPage />} />
         <Route path={AppRoute.RoomRoute} element={<RoomPage />} />
         <Route
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesPage/>
+              <FavoritesPage
+                offers={offers}
+              />
             </PrivateRoute>
           }
         />
