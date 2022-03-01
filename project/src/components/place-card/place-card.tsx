@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import OfferType from '../../types/offer';
 import classNames from 'classnames';
+import {RATING_WIDTH_MULTIPLIER} from '../../constants/constants';
 
 type PlaceCardPropsType = {
   offer: OfferType,
@@ -21,7 +22,7 @@ function PlaceCard(props: PlaceCardPropsType): JSX.Element {
   } = props.offer;
 
   const url = props.url;
-  const width = `${rating * 20}%`;
+  const width = `${rating * RATING_WIDTH_MULTIPLIER}%`;
 
   const btnClassName = classNames({
     'button': true,
