@@ -3,6 +3,7 @@ import CardList from '../card-list/card-list';
 import OfferType from '../../types/offer';
 import LogoLink from '../logo-link/logo-link';
 import Cities from '../cities/cities';
+import Map from '../map/map';
 
 
 type MainPageProps = {
@@ -52,7 +53,7 @@ function MainPage(props:MainPageProps): JSX.Element {
               <CardList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map />
             </div>
           </div>
         </div>
