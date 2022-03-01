@@ -18,14 +18,14 @@ function RoomPage(): JSX.Element {
   }
 
   const activeId = id ? Number(id) : 0;
-  const activeOffer = offers.find((item)=>item.id === activeId);
+  const activeOffer = offers.find((item:OfferType)=>item.id === activeId);
 
   if(!activeOffer) {
     return <Navigate to='*' />;
   }
 
   const offer:OfferType = activeOffer;
-  const filtredOffers = offers.filter((offerItem)=>(offerItem.id !== activeId));
+  const filtredOffers:OfferType[] = offers.filter((offerItem:OfferType)=>(offerItem.id !== activeId));
   const offersCardList = filtredOffers.slice(0, 3);
 
   const {

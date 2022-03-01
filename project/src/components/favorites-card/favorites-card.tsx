@@ -7,12 +7,12 @@ type FavoritesCardPropsType = {
 }
 
 function FavoritesCard(props: FavoritesCardPropsType): JSX.Element {
+
+  const {url, offer} = props;
   const {
     isPremium,
     previewImage,
-  } = props.offer;
-
-  const url = props.url;
+  } = offer;
 
   return (
     <article className="favorites__card place-card">

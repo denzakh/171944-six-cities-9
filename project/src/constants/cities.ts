@@ -1,4 +1,6 @@
-const cities:string[] = [
+import CityNameType from '../types/cityName';
+
+const cities: CityNameType[] = [
   'Paris',
   'Cologne',
   'Brussels',

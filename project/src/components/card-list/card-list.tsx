@@ -1,6 +1,6 @@
 import PlaceCard from '../place-card/place-card';
 import OfferType from '../../types/offer';
-import {AppRoute} from '../../tools/constants';
+import {AppRoute} from '../../constants/constants';
 import {useState} from 'react';
 
 type CardListProps = {
@@ -10,11 +10,11 @@ type CardListProps = {
 function CardList(props: CardListProps): JSX.Element {
   const [, setActiveId] = useState('');
 
-  const handleEnter = (id:string):void => {
+  const handleEnter = (id: string): void => {
     setActiveId(id);
   };
 
-  const handleLeave = ():void => {
+  const handleLeave = (): void => {
     setActiveId('');
   };
 

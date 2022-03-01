@@ -1,3 +1,5 @@
+import CityNameType from './cityName';
+
 type Location = {
   latitude: number,
   longitude: number,
@@ -5,7 +7,7 @@ type Location = {
 }
 
 type City = {
-	name: string,
+	name: CityNameType,
   location: Location,
 }
 

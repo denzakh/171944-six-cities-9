@@ -1,4 +1,4 @@
-//import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../tools/constants';
+//import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../';
 
 function Map(): JSX.Element {
   return (

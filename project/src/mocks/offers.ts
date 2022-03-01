@@ -1,4 +1,6 @@
-const offers = [
+import OfferType from '../types/offer';
+
+const offers:OfferType[] = [
   {
     'city': {
       'name': 'Amsterdam',

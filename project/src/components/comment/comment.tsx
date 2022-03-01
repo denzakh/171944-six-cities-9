@@ -1,10 +1,11 @@
 import CommentType from '../../types/comment';
+import {RATING_WIDTH_MULTIPLIER} from '../../constants/constants';
 
 type CommentPropsType = {
   comment: CommentType,
 };
 
-function Comment(props:CommentPropsType) {
+function Comment(props: CommentPropsType) {
 
   const {
     user,
@@ -13,7 +14,7 @@ function Comment(props:CommentPropsType) {
     date,
   } = props.comment;
 
-  const width = `${rating * 20}%`;
+  const width = `${rating * RATING_WIDTH_MULTIPLIER}%`;
 
   return (
     <li className="reviews__item">

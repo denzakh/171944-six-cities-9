@@ -1,17 +1,16 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
-import cities from './../../mocks/cities';
+import cities from '../../constants/cities';
+
+function getLinkClassName(city: string, activeCity: string | null): string {
+  return classNames({
+    'locations__item-link': true,
+    'tabs__item': true,
+    'tabs__item--active': city === activeCity,
+  });
+}
 
 function Cities() {
-
-  function getLinkClassName(city:string, activeCity:string|null):string {
-    return classNames({
-      'locations__item-link': true,
-      'tabs__item': true,
-      'tabs__item--active': city === activeCity,
-    });
-  }
-
   const [searchParams] = useSearchParams();
   const activeCity = searchParams.get('city');
 

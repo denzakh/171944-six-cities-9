@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../tools/constants';
+import {AppRoute} from '../../constants/constants';
 
 function NavUser(): JSX.Element {
   return (
