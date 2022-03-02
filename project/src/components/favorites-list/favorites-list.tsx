@@ -7,15 +7,11 @@ type FavoritesListProps = {
   offers: Offer[],
 };
 
-type Sum = {
+type CitiesGroup = {
   [propertyName: string]: Offer[],
 }
 
-type sumInitialType = {
-  [propertyName: string]: Array<never>,
-}
-
-const sumInitial:sumInitialType = {
+const sumInitial: CitiesGroup = {
   'Paris': [],
   'Cologne': [],
   'Brussels': [],
@@ -28,17 +24,17 @@ function FavoritesList(props: FavoritesListProps): JSX.Element {
   const {offers} = props;
 
   const cities = offers.reduce(
-    (sum:Sum, offer: Offer)=>{
+    (citiesGroup: CitiesGroup, offer: Offer) => {
       const cityName: CityNameType = offer.city.name;
-      sum[cityName].push(offer);
-      return sum;
+      citiesGroup[cityName].push(offer);
+      return citiesGroup;
     },
     sumInitial,
   );
 
   return (
     <ul className="favorites__list">
-      {Object.entries(cities).map(([location, cardList])=>(
+      {Object.entries(cities).map(([location, cardList]) => cardList.length > 0 && (
         <li className="favorites__locations-items" key={location}>
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
