@@ -1,20 +1,40 @@
 import NavUser from '../nav-user/nav-user';
-import CardList from '../card-list/card-list';
 import OfferType from '../../types/offer';
 import LogoLink from '../logo-link/logo-link';
 import Cities from '../cities/cities';
-import Map from '../map/map';
+import CityNameType from '../../types/cityName';
+import CitiesPlaces from '../cities-places/cities-places';
+import CitiesEmpty from '../cities-empty/cities-empty';
+import {useSearchParams} from 'react-router-dom';
+import classNames from 'classnames';
 
+function getLinkClassName(isEmpty: boolean): string {
+  return classNames({
+    'page': true,
+    'page--gray': true,
+    'page--main': true,
+    'page__main--index-empty': isEmpty,
+  });
+}
 
 type MainPageProps = {
   offers: OfferType[],
 }
 
+type activeCityType = CityNameType | null;
+
 function MainPage(props:MainPageProps): JSX.Element {
-  const {offers} = props;
+  let {offers} = props;
+
+  const [searchParams] = useSearchParams();
+  const activeCity = searchParams.get('city') as activeCityType;
+
+  if(activeCity) {
+    offers = offers.filter((offer) => offer.city.name === activeCity);
+  }
 
   return (
-    <div className="page page--gray page--main">
+    <div className={getLinkClassName(offers.length === 0)}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -31,31 +51,9 @@ function MainPage(props:MainPageProps): JSX.Element {
           <Cities />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width={7} height={4}>
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <CardList offers={offers} />
-            </section>
-            <div className="cities__right-section">
-              <Map />
-            </div>
-          </div>
+          {offers.length ?
+            <CitiesPlaces offers={offers} activeCity={activeCity} /> :
+            <CitiesEmpty activeCity={activeCity} />}
         </div>
       </main>
     </div>
