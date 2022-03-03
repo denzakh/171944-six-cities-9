@@ -1,5 +1,5 @@
-import { Navigate } from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../tools/constants';
+import {Navigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../constants/constants';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
