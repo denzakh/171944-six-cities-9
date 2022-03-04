@@ -1,30 +1,23 @@
 import PlaceCard from '../place-card/place-card';
 import OfferType from '../../types/offer';
 import {AppRoute} from '../../constants/constants';
-import {useState} from 'react';
+import {onCardItemHoverType} from '../../types/functions';
 
 type CardListProps = {
   offers: OfferType[],
+  onCardItemHover?: onCardItemHoverType,
 };
 
 function CardList(props: CardListProps): JSX.Element {
-  const [, setActiveId] = useState('');
+  const {offers, onCardItemHover} = props;
 
-  const handleEnter = (id: string): void => {
-    setActiveId(id);
-  };
-
-  const handleLeave = (): void => {
-    setActiveId('');
-  };
-
-  const cards = props.offers.map((offer) => (
+  const cards = offers.map((offer) => (
     <PlaceCard
       key={offer.id}
       offer={offer}
       url={`${AppRoute.Room}/${offer.id}`}
-      onMouseEnter={()=>(handleEnter(String(offer.id)))}
-      onMouseLeave={handleLeave}
+      onMouseEnter={()=>onCardItemHover && onCardItemHover({id: offer.id})}
+      onMouseLeave={()=>onCardItemHover && onCardItemHover({id: undefined})}
     />
   ));
 

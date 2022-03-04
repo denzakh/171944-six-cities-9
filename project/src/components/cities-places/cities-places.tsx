@@ -2,42 +2,103 @@ import CardList from '../card-list/card-list';
 import Map from '../map/map';
 import OfferType from '../../types/offer';
 import CityNameType from '../../types/cityName';
+import {Point} from '../../types/offer';
+import {onCardItemHoverType} from '../../types/functions';
+import {citiesMapObj} from '../../constants/cities';
+import Sorting from '../../components/sorting/sorting';
+import {useState} from 'react';
+import Filter from '../../types/filter';
 
 type CitiesPlacesPropsType = {
   offers: OfferType[];
-  activeCity: CityNameType | null;
+  activeCity: CityNameType;
+  selectedPointId: number | undefined,
+  onCardItemHover: onCardItemHoverType,
 };
 
-function CitiesPlaces(props: CitiesPlacesPropsType): JSX.Element {
+type FilterStateType = {
+  isOpen: boolean,
+  activeFilter: Filter,
+}
 
-  const {offers, activeCity} = props;
+const initialState: FilterStateType = {
+  isOpen: false,
+  activeFilter: Filter.Pop,
+};
+
+function getSortList(offers: OfferType[], activeFilter: Filter): OfferType[] {
+  let sortedList = [...offers];
+
+  switch(activeFilter) {
+    case Filter.Tr:
+      sortedList.sort((prev, next) => next.rating - prev.rating);
+      break;
+    case Filter.Phl:
+      sortedList.sort((prev, next) => next.price - prev.price);
+      break;
+    case Filter.Plh:
+      sortedList.sort((prev, next) => prev.price - next.price);
+      break;
+    default:
+      sortedList = [...offers];
+  }
+
+  return sortedList;
+}
+
+function CitiesPlaces(props: CitiesPlacesPropsType): JSX.Element {
+  const {offers, activeCity, selectedPointId, onCardItemHover} = props;
+  const [filterState, setFilterState] = useState(initialState);
+
+  function handleToggleFilterMenu(): void {
+    setFilterState({
+      ...filterState,
+      isOpen: !filterState.isOpen,
+    });
+  }
+
+  function handleActiveFilter(activeFilter: Filter): void {
+    setFilterState({
+      isOpen: false,
+      activeFilter: activeFilter,
+    });
+  }
+
+  const points: Point[] = offers.map((offer) => ({
+    id: offer.id,
+    title: offer.title,
+    latitude: offer.location.latitude,
+    longitude: offer.location.longitude,
+  }));
+
+  const cityObj = citiesMapObj[activeCity];
+  const filterMenu = Object.values(Filter);
 
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{offers.length} places
-          {activeCity ? ` to stay in ${activeCity}` : null}
+          {activeCity && ` to stay in ${activeCity}`}
         </b>
-        <form className="places__sorting" action="#" method="get">
-          <span className="places__sorting-caption">Sort by</span>
-          <span className="places__sorting-type" tabIndex={0}>
-            Popular
-            <svg className="places__sorting-arrow" width={7} height={4}>
-              <use xlinkHref="#icon-arrow-select" />
-            </svg>
-          </span>
-          <ul className="places__options places__options--custom places__options--opened">
-            <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-            <li className="places__option" tabIndex={0}>Price: low to high</li>
-            <li className="places__option" tabIndex={0}>Price: high to low</li>
-            <li className="places__option" tabIndex={0}>Top rated first</li>
-          </ul>
-        </form>
-        <CardList offers={offers} />
+        <Sorting
+          handleToggleFilterMenu={handleToggleFilterMenu}
+          isOpen={filterState.isOpen}
+          handleActiveFilter={handleActiveFilter}
+          activeFilter={filterState.activeFilter}
+          filterMenu={filterMenu}
+        />
+        <CardList
+          offers={getSortList(offers, filterState.activeFilter)}
+          onCardItemHover={onCardItemHover}
+        />
       </section>
       <div className="cities__right-section">
-        <Map offers={offers} />
+        <Map
+          points={points}
+          selectedPointId={selectedPointId}
+          cityObj={cityObj}
+        />
       </div>
     </div>
   );

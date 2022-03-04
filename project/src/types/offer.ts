@@ -18,6 +18,26 @@ type Host = {
   avatarUrl: string,
 }
 
+type Point = {
+  id: number,
+  title: string,
+  latitude: number,
+  longitude: number,
+}
+
+type CityObj = {
+  title: CityNameType,
+  latitude: number,
+  longitude: number,
+  zoom: number,
+}
+
+type RoomType =
+  'apartment' |
+  'room' |
+  'house' |
+  'hotel';
+
 type Offer = {
   city: City,
   previewImage: string,
@@ -26,7 +46,7 @@ type Offer = {
   isFavorite: false | true,
   isPremium: false | true,
   rating: number,
-  type: string,
+  type: RoomType,
   bedrooms: number,
   maxAdults: number,
   price: number,
@@ -36,5 +56,7 @@ type Offer = {
   location: Location,
   id: number,
 }
+
+export type {Location, City, Host, Point, CityObj};
 
 export default Offer;

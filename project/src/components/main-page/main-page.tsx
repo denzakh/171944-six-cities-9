@@ -7,6 +7,8 @@ import CitiesPlaces from '../cities-places/cities-places';
 import CitiesEmpty from '../cities-empty/cities-empty';
 import {useSearchParams} from 'react-router-dom';
 import classNames from 'classnames';
+import {DEFAULT_CITY} from '../../constants/cities';
+import {onCardItemHoverType} from '../../types/functions';
 
 function getLinkClassName(isEmpty: boolean): string {
   return classNames({
@@ -19,22 +21,19 @@ function getLinkClassName(isEmpty: boolean): string {
 
 type MainPageProps = {
   offers: OfferType[],
+  selectedPointId: number | undefined,
+  onCardItemHover: onCardItemHoverType,
 }
 
-type activeCityType = CityNameType | null;
-
 function MainPage(props:MainPageProps): JSX.Element {
-  let {offers} = props;
-
+  const {offers, selectedPointId, onCardItemHover} = props;
   const [searchParams] = useSearchParams();
-  const activeCity = searchParams.get('city') as activeCityType;
+  const activeCity = searchParams.get('city') as CityNameType || DEFAULT_CITY;
 
-  if(activeCity) {
-    offers = offers.filter((offer) => offer.city.name === activeCity);
-  }
+  const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
 
   return (
-    <div className={getLinkClassName(offers.length === 0)}>
+    <div className={getLinkClassName(filteredOffers.length === 0)}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -51,8 +50,13 @@ function MainPage(props:MainPageProps): JSX.Element {
           <Cities />
         </div>
         <div className="cities">
-          {offers.length ?
-            <CitiesPlaces offers={offers} activeCity={activeCity} /> :
+          {filteredOffers.length ?
+            <CitiesPlaces
+              offers={filteredOffers}
+              activeCity={activeCity}
+              selectedPointId={selectedPointId}
+              onCardItemHover={onCardItemHover}
+            /> :
             <CitiesEmpty activeCity={activeCity} />}
         </div>
       </main>
