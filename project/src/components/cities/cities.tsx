@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import cities from '../../constants/cities';
+import {DEFAULT_CITY} from '../../constants/cities';
 
 function getLinkClassName(city: string, activeCity: string | null): string {
   return classNames({
@@ -12,7 +13,7 @@ function getLinkClassName(city: string, activeCity: string | null): string {
 
 function Cities() {
   const [searchParams] = useSearchParams();
-  const activeCity = searchParams.get('city');
+  const activeCity = searchParams.get('city') || DEFAULT_CITY;
 
   return (
     <section className="locations container">

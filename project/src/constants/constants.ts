@@ -21,3 +21,7 @@ export const URL_MARKER_CURRENT =
 export const RATING_WIDTH_MULTIPLIER = 20;
 
 export const STAR_NUMBER_ARR = [5, 4, 3, 2, 1];
+
+export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+export const TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
