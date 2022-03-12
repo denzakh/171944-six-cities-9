@@ -1,28 +1,50 @@
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../constants/constants';
 import useMap from '../../hooks/use-map/use-map';
-import {useRef, useEffect} from 'react';
-import leaflet from 'leaflet';
+import {useRef, useEffect, useState} from 'react';
+import leaflet, {LatLng} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {Point} from '../../types/offer';
-import {CityObj} from '../../types/offer';
 import {activeCardIdType} from '../../types/functions';
 import {getLeafletIcon} from '../../constants/functions';
+import {citiesMapObj} from '../../constants/cities';
+import CityNameType from '../../types/cityName';
+import classNames from 'classnames';
 
 type MapProps = {
   points: Point[],
   selectedPointId: activeCardIdType,
-  cityObj: CityObj,
+  activeCity: CityNameType,
+  mapClassName?: string,
+}
+
+function getMapClassName(mapClassName: string | undefined): string {
+  if(mapClassName) {
+    return classNames({
+      'map': true,
+      [mapClassName]: true,
+    });
+  } else {
+    return 'map';
+  }
 }
 
 function Map(props :MapProps): JSX.Element {
-  const {points, selectedPointId, cityObj} = props;
+
+  const {points, selectedPointId, activeCity, mapClassName} = props;
   const mapRef = useRef(null);
-  const map = useMap(mapRef, cityObj);
   const defaultCustomIcon = getLeafletIcon(URL_MARKER_DEFAULT);
   const currentCustomIcon = getLeafletIcon(URL_MARKER_CURRENT);
+  const cityObj = citiesMapObj[activeCity];
+  const map = useMap(mapRef, cityObj);
+  const [prevCity, setPrevCity] = useState<CityNameType | null>(null);
 
   useEffect(() => {
     if (map) {
+      if(activeCity !== prevCity) {
+        map.setView(new LatLng(cityObj.latitude, cityObj.longitude), cityObj.zoom);
+        setPrevCity(activeCity);
+      }
+
       points.forEach((point) => {
         leaflet
           .marker({
@@ -36,11 +58,22 @@ function Map(props :MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, points, currentCustomIcon, defaultCustomIcon, selectedPointId]);
+  }, [
+    map,
+    points,
+    currentCustomIcon,
+    defaultCustomIcon,
+    selectedPointId,
+    activeCity,
+    cityObj.latitude,
+    cityObj.longitude,
+    cityObj.zoom,
+    prevCity,
+  ]);
 
   return (
     <section
-      className="cities__map map"
+      className={getMapClassName(mapClassName)}
       ref={mapRef}
     />
   );

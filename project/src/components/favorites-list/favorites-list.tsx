@@ -14,6 +14,7 @@ type CitiesType = {
 }
 
 function FavoritesList(props: FavoritesListProps): JSX.Element {
+
   const {offers} = props;
   const cities:CitiesType = citiesObj;
 

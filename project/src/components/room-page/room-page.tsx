@@ -1,13 +1,16 @@
 import NavUser from '../nav-user/nav-user';
 import LogoLink from '../logo-link/logo-link';
 import offers from './../../mocks/offers';
-import OfferType from '../../types/offer';
+import OfferType, {Point} from '../../types/offer';
 import comments from './../../mocks/comments';
 import classNames from 'classnames';
 import Form from '../form/form';
 import {useParams, Navigate} from 'react-router-dom';
 import CardList from '../card-list/card-list';
 import Comment from '../comment/comment';
+import Map from '../map/map';
+import {getPointsfromoffers} from '../../constants/functions';
+import CityNameType from '../../types/cityName';
 
 function RoomPage(): JSX.Element {
 
@@ -29,6 +32,10 @@ function RoomPage(): JSX.Element {
       offerItem.id !== activeId
     ));
     filtredOffers = filtredOffers.slice(0, 3);
+
+    const filtredOffersWithActiveOffer = [...filtredOffers, ...[activeOffer]];
+    const points: Point[] = getPointsfromoffers(filtredOffersWithActiveOffer);
+    const activeCityName: CityNameType = activeOffer.city.name;
 
     const {
       images,
@@ -181,7 +188,12 @@ function RoomPage(): JSX.Element {
                 </section>
               </div>
             </div>
-            <section className="property__map map" />
+            <Map
+              points={points}
+              selectedPointId={activeId}
+              activeCity={activeCityName}
+              mapClassName='property__map'
+            />
           </section>
           <div className="container">
             <section className="near-places places">

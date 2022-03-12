@@ -1,10 +1,9 @@
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
-import OfferType from '../../types/offer';
+import OfferType, {Point} from '../../types/offer';
 import CityNameType from '../../types/cityName';
-import {Point} from '../../types/offer';
 import {onCardItemHoverType} from '../../types/functions';
-import {citiesMapObj} from '../../constants/cities';
+import {getPointsfromoffers} from '../../constants/functions';
 import Sorting from '../../components/sorting/sorting';
 import {useState} from 'react';
 import Filter from '../../types/filter';
@@ -27,6 +26,7 @@ const initialState: FilterStateType = {
 };
 
 function getSortList(offers: OfferType[], activeFilter: Filter): OfferType[] {
+
   let sortedList = [...offers];
 
   switch(activeFilter) {
@@ -64,14 +64,7 @@ function CitiesPlaces(props: CitiesPlacesPropsType): JSX.Element {
     });
   }
 
-  const points: Point[] = offers.map((offer) => ({
-    id: offer.id,
-    title: offer.title,
-    latitude: offer.location.latitude,
-    longitude: offer.location.longitude,
-  }));
-
-  const cityObj = citiesMapObj[activeCity];
+  const points: Point[] = getPointsfromoffers(offers);
   const filterMenu = Object.values(Filter);
 
   return (
@@ -97,7 +90,8 @@ function CitiesPlaces(props: CitiesPlacesPropsType): JSX.Element {
         <Map
           points={points}
           selectedPointId={selectedPointId}
-          cityObj={cityObj}
+          activeCity={activeCity}
+          mapClassName='cities__map'
         />
       </div>
     </div>

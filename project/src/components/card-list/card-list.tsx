@@ -9,6 +9,7 @@ type CardListProps = {
 };
 
 function CardList(props: CardListProps): JSX.Element {
+
   const {offers, onCardItemHover} = props;
 
   const cards = offers.map((offer) => (

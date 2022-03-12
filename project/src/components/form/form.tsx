@@ -8,6 +8,7 @@ const initialState = {
 };
 
 function Form() {
+
   const [form, setForm] = useState(initialState);
 
   function handleStar(starCount: number): void {

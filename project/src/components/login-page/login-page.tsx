@@ -2,7 +2,6 @@ import LogoLink from '../logo-link/logo-link';
 import {Link} from 'react-router-dom';
 
 function LoginPage(): JSX.Element {
-
   return (
     <div className="page page--gray page--login">
       <header className="header">

@@ -12,6 +12,7 @@ function getLinkClassName(city: string, activeCity: string | null): string {
 }
 
 function Cities() {
+
   const [searchParams] = useSearchParams();
   const activeCity = searchParams.get('city') || DEFAULT_CITY;
 

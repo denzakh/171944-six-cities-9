@@ -26,10 +26,10 @@ type MainPageProps = {
 }
 
 function MainPage(props:MainPageProps): JSX.Element {
+
   const {offers, selectedPointId, onCardItemHover} = props;
   const [searchParams] = useSearchParams();
   const activeCity = searchParams.get('city') as CityNameType || DEFAULT_CITY;
-
   const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
 
   return (
