@@ -9,6 +9,7 @@ type FavoritesPageProps = {
 }
 
 function FavoritesPage(props:FavoritesPageProps): JSX.Element {
+
   const {offers} = props;
 
   return (

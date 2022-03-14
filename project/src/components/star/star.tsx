@@ -4,6 +4,7 @@ type StarPropsType = {
 }
 
 function Star(props:StarPropsType) {
+
   const {
     count,
     onChange,

@@ -25,6 +25,7 @@ function getOptionClassName(option: Filter, activeoption: Filter): string {
 }
 
 function Sorting(props: SortingPropsType): JSX.Element {
+
   const {
     handleToggleFilterMenu,
     isOpen,

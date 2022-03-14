@@ -19,6 +19,7 @@ const initialActiveCardState:activeCardStateType = {
 };
 
 function App(props: AppProps): JSX.Element {
+
   const {offers} = props;
   const [activeCardState, setSelectedPointId] = useState(initialActiveCardState);
   const onCardItemHover: onCardItemHoverType = (newActiveCardState) => setSelectedPointId(newActiveCardState);
