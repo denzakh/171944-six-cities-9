@@ -1,37 +1,49 @@
+import classNames from 'classnames';
+import {useParams, Navigate} from 'react-router-dom';
 import NavUser from '../nav-user/nav-user';
 import LogoLink from '../logo-link/logo-link';
 import offers from './../../mocks/offers';
 import OfferType, {Point} from '../../types/offer';
 import comments from './../../mocks/comments';
-import classNames from 'classnames';
 import Form from '../form/form';
-import {useParams, Navigate} from 'react-router-dom';
 import CardList from '../card-list/card-list';
 import Comment from '../comment/comment';
 import Map from '../map/map';
 import {getPointsfromoffers} from '../../constants/functions';
+import {RATING_WIDTH_MULTIPLIER, NEAR_PLACES_COUNT} from '../../constants/constants';
 import CityNameType from '../../types/cityName';
 
 function RoomPage(): JSX.Element {
 
-  const { id } = useParams();
+  const {id} = useParams();
 
   if(!id) {
     return <Navigate to='*' />;
   }
 
   const activeId = id ? Number(id) : 0;
-  const activeOffer = offers.find((item:OfferType)=>item.id === activeId);
+  const activeOffer = offers.find((item: OfferType)=>item.id === activeId);
 
   if(!activeOffer) {
     return <Navigate to='*' />;
   } else {
 
-    let filtredOffers:OfferType[] = offers.filter((offerItem:OfferType)=>(
-      offerItem.city.name === activeOffer.city.name &&
-      offerItem.id !== activeId
-    ));
-    filtredOffers = filtredOffers.slice(0, 3);
+    const filtredOffers: OfferType[] = [];
+
+    for(let i = 0, j = 0; i < offers.length; i++) {
+      const offerItem = offers[i];
+
+      if(offerItem.city.name === activeOffer.city.name &&
+        offerItem.id !== activeId) {
+
+        if(j < NEAR_PLACES_COUNT) {
+          filtredOffers.push(offerItem);
+          j++;
+        } else {
+          break;
+        }
+      }
+    }
 
     const filtredOffersWithActiveOffer = [...filtredOffers, ...[activeOffer]];
     const points: Point[] = getPointsfromoffers(filtredOffersWithActiveOffer);
@@ -58,7 +70,7 @@ function RoomPage(): JSX.Element {
       avatarUrl,
     } = host;
 
-    const width = `${rating * 20}%`;
+    const width = `${rating * RATING_WIDTH_MULTIPLIER}%`;
 
     const btnClassName = classNames({
       'button': true,

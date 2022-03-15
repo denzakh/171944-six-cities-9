@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import CardList from '../card-list/card-list';
 import Map from '../map/map';
 import OfferType, {Point} from '../../types/offer';
@@ -5,7 +6,6 @@ import CityNameType from '../../types/cityName';
 import {onCardItemHoverType} from '../../types/functions';
 import {getPointsfromoffers} from '../../constants/functions';
 import Sorting from '../../components/sorting/sorting';
-import {useState} from 'react';
 import Filter from '../../types/filter';
 
 type CitiesPlacesPropsType = {

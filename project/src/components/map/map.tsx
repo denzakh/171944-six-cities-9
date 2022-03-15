@@ -1,14 +1,15 @@
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../constants/constants';
-import useMap from '../../hooks/use-map/use-map';
 import {useRef, useEffect, useState} from 'react';
+import classNames from 'classnames';
 import leaflet, {LatLng} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../constants/constants';
+import useMap from '../../hooks/use-map/use-map';
 import {Point} from '../../types/offer';
 import {activeCardIdType} from '../../types/functions';
 import {getLeafletIcon} from '../../constants/functions';
 import {citiesMapObj} from '../../constants/cities';
 import CityNameType from '../../types/cityName';
-import classNames from 'classnames';
+
 
 type MapProps = {
   points: Point[],

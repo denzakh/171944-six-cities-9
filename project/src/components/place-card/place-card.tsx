@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
-import OfferType from '../../types/offer';
 import classNames from 'classnames';
+import OfferType from '../../types/offer';
 import {RATING_WIDTH_MULTIPLIER} from '../../constants/constants';
 
 type PlaceCardPropsType = {

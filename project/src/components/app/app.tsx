@@ -1,26 +1,26 @@
+import {useState} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../constants/constants';
-import {useState} from 'react';
 import MainPage from '../main-page/main-page';
 import Page404 from '../page404/page404';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
 import PrivateRoute from '../private-route/private-route';
-import Offer from '../../types/offer';
 import {onCardItemHoverType, activeCardStateType} from '../../types/functions';
-
-type AppProps = {
-  offers: Offer[],
-}
+import {useAppDispatch, useAppSelector} from '../../hooks/';
+import {addOffers} from '../../store/action';
 
 const initialActiveCardState:activeCardStateType = {
   id: undefined,
 };
 
-function App(props: AppProps): JSX.Element {
+function App(): JSX.Element {
 
-  const {offers} = props;
+  const dispatch = useAppDispatch();
+  dispatch(addOffers());
+
+  const offers = useAppSelector((state) => state.offers);
   const [activeCardState, setSelectedPointId] = useState(initialActiveCardState);
   const onCardItemHover: onCardItemHoverType = (newActiveCardState) => setSelectedPointId(newActiveCardState);
 

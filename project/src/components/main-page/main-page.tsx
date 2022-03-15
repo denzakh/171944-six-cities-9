@@ -1,14 +1,15 @@
+import {useSearchParams} from 'react-router-dom';
+import classNames from 'classnames';
 import NavUser from '../nav-user/nav-user';
 import OfferType from '../../types/offer';
 import LogoLink from '../logo-link/logo-link';
 import Cities from '../cities/cities';
-import CityNameType from '../../types/cityName';
 import CitiesPlaces from '../cities-places/cities-places';
 import CitiesEmpty from '../cities-empty/cities-empty';
-import {useSearchParams} from 'react-router-dom';
-import classNames from 'classnames';
 import {DEFAULT_CITY} from '../../constants/cities';
 import {onCardItemHoverType} from '../../types/functions';
+import {addOffers, changeActiveCity} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks/';
 
 function getLinkClassName(isEmpty: boolean): string {
   return classNames({
@@ -28,8 +29,15 @@ type MainPageProps = {
 function MainPage(props:MainPageProps): JSX.Element {
 
   const {offers, selectedPointId, onCardItemHover} = props;
+
+  const dispatch = useAppDispatch();
+  dispatch(addOffers());
+
   const [searchParams] = useSearchParams();
-  const activeCity = searchParams.get('city') as CityNameType || DEFAULT_CITY;
+  const activeCityParams = searchParams.get('city') || DEFAULT_CITY;
+  dispatch(changeActiveCity({activeCity: activeCityParams}));
+
+  const activeCity = useAppSelector((state) => state.activeCity);
   const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
 
   return (
@@ -47,7 +55,7 @@ function MainPage(props:MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Cities />
+          <Cities activeCity={activeCity} />
         </div>
         <div className="cities">
           {filteredOffers.length ?

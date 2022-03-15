@@ -62,6 +62,6 @@ export const citiesMapObj: citiesMapObjType = {
   },
 };
 
-export const DEFAULT_CITY: CityNameType = 'Amsterdam';
+export const DEFAULT_CITY: CityNameType = 'Paris';
 
 export default cities;
