@@ -1,15 +1,17 @@
 import {useSearchParams} from 'react-router-dom';
 import classNames from 'classnames';
 import NavUser from '../nav-user/nav-user';
-import OfferType from '../../types/offer';
 import LogoLink from '../logo-link/logo-link';
 import Cities from '../cities/cities';
 import CitiesPlaces from '../cities-places/cities-places';
 import CitiesEmpty from '../cities-empty/cities-empty';
+import {addOffers} from '../../store/action';
+import {useAppDispatch} from '../../hooks/';
+import OfferType from '../../types/offer';
+import CityNameType from '../../types/cityName';
 import {DEFAULT_CITY} from '../../constants/cities';
 import {onCardItemHoverType} from '../../types/functions';
-import {addOffers, changeActiveCity} from '../../store/action';
-import {useAppDispatch, useAppSelector} from '../../hooks/';
+import cities from '../../constants/cities';
 
 function getLinkClassName(isEmpty: boolean): string {
   return classNames({
@@ -26,7 +28,11 @@ type MainPageProps = {
   onCardItemHover: onCardItemHoverType,
 }
 
-function MainPage(props:MainPageProps): JSX.Element {
+function isCity(citiesArr: CityNameType[], city: string | null): city is CityNameType {
+  return citiesArr.includes(city as CityNameType);
+}
+
+function MainPage(props: MainPageProps): JSX.Element {
 
   const {offers, selectedPointId, onCardItemHover} = props;
 
@@ -34,10 +40,9 @@ function MainPage(props:MainPageProps): JSX.Element {
   dispatch(addOffers());
 
   const [searchParams] = useSearchParams();
-  const activeCityParams = searchParams.get('city') || DEFAULT_CITY;
-  dispatch(changeActiveCity({activeCity: activeCityParams}));
+  const activeCityParams = searchParams.get('city');
+  const activeCity = isCity(cities, activeCityParams) ? activeCityParams : DEFAULT_CITY;
 
-  const activeCity = useAppSelector((state) => state.activeCity);
   const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
 
   return (

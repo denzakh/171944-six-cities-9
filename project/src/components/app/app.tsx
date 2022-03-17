@@ -1,15 +1,15 @@
 import {useState} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../constants/constants';
 import MainPage from '../main-page/main-page';
 import Page404 from '../page404/page404';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
+import {addOffers} from '../../store/action';
 import PrivateRoute from '../private-route/private-route';
 import {onCardItemHoverType, activeCardStateType} from '../../types/functions';
 import {useAppDispatch, useAppSelector} from '../../hooks/';
-import {addOffers} from '../../store/action';
+import {AppRoute, AuthorizationStatus} from '../../constants/constants';
 
 const initialActiveCardState:activeCardStateType = {
   id: undefined,
