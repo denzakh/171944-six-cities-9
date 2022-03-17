@@ -1,8 +1,8 @@
+import {Link} from 'react-router-dom';
 import NavUser from '../nav-user/nav-user';
 import FavoritesList from '../favorites-list/favorites-list';
 import OfferType from '../../types/offer';
 import LogoLink from '../logo-link/logo-link';
-import {Link} from 'react-router-dom';
 
 type FavoritesPageProps = {
   offers: OfferType[],

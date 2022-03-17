@@ -1,14 +1,17 @@
-import NavUser from '../nav-user/nav-user';
-import OfferType from '../../types/offer';
-import LogoLink from '../logo-link/logo-link';
-import Cities from '../cities/cities';
-import CityNameType from '../../types/cityName';
-import CitiesPlaces from '../cities-places/cities-places';
-import CitiesEmpty from '../cities-empty/cities-empty';
 import {useSearchParams} from 'react-router-dom';
 import classNames from 'classnames';
+import NavUser from '../nav-user/nav-user';
+import LogoLink from '../logo-link/logo-link';
+import Cities from '../cities/cities';
+import CitiesPlaces from '../cities-places/cities-places';
+import CitiesEmpty from '../cities-empty/cities-empty';
+import {addOffers} from '../../store/action';
+import {useAppDispatch} from '../../hooks/';
+import OfferType from '../../types/offer';
+import CityNameType from '../../types/cityName';
 import {DEFAULT_CITY} from '../../constants/cities';
 import {onCardItemHoverType} from '../../types/functions';
+import cities from '../../constants/cities';
 
 function getLinkClassName(isEmpty: boolean): string {
   return classNames({
@@ -25,11 +28,21 @@ type MainPageProps = {
   onCardItemHover: onCardItemHoverType,
 }
 
-function MainPage(props:MainPageProps): JSX.Element {
+function isCity(citiesArr: CityNameType[], city: string | null): city is CityNameType {
+  return citiesArr.includes(city as CityNameType);
+}
+
+function MainPage(props: MainPageProps): JSX.Element {
 
   const {offers, selectedPointId, onCardItemHover} = props;
+
+  const dispatch = useAppDispatch();
+  dispatch(addOffers());
+
   const [searchParams] = useSearchParams();
-  const activeCity = searchParams.get('city') as CityNameType || DEFAULT_CITY;
+  const activeCityParams = searchParams.get('city');
+  const activeCity = isCity(cities, activeCityParams) ? activeCityParams : DEFAULT_CITY;
+
   const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
 
   return (
@@ -47,7 +60,7 @@ function MainPage(props:MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Cities />
+          <Cities activeCity={activeCity} />
         </div>
         <div className="cities">
           {filteredOffers.length ?

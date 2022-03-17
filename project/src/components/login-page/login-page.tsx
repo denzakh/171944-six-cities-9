@@ -1,5 +1,5 @@
-import LogoLink from '../logo-link/logo-link';
 import {Link} from 'react-router-dom';
+import LogoLink from '../logo-link/logo-link';
 
 function LoginPage(): JSX.Element {
   return (
