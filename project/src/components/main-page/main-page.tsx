@@ -5,13 +5,12 @@ import LogoLink from '../logo-link/logo-link';
 import Cities from '../cities/cities';
 import CitiesPlaces from '../cities-places/cities-places';
 import CitiesEmpty from '../cities-empty/cities-empty';
-import {addOffers} from '../../store/action';
-import {useAppDispatch} from '../../hooks/';
-import OfferType from '../../types/offer';
+import {useAppSelector} from '../../hooks/';
 import CityNameType from '../../types/cityName';
 import {DEFAULT_CITY} from '../../constants/cities';
 import {onCardItemHoverType} from '../../types/functions';
 import cities from '../../constants/cities';
+
 
 function getLinkClassName(isEmpty: boolean): string {
   return classNames({
@@ -23,7 +22,6 @@ function getLinkClassName(isEmpty: boolean): string {
 }
 
 type MainPageProps = {
-  offers: OfferType[],
   selectedPointId: number | undefined,
   onCardItemHover: onCardItemHoverType,
 }
@@ -34,10 +32,8 @@ function isCity(citiesArr: CityNameType[], city: string | null): city is CityNam
 
 function MainPage(props: MainPageProps): JSX.Element {
 
-  const {offers, selectedPointId, onCardItemHover} = props;
-
-  const dispatch = useAppDispatch();
-  dispatch(addOffers());
+  const {selectedPointId, onCardItemHover} = props;
+  const offers = useAppSelector((state) => state.offers);
 
   const [searchParams] = useSearchParams();
   const activeCityParams = searchParams.get('city');

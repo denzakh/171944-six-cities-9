@@ -8,7 +8,7 @@ import RoomPage from '../room-page/room-page';
 import {addOffers} from '../../store/action';
 import PrivateRoute from '../private-route/private-route';
 import {onCardItemHoverType, activeCardStateType} from '../../types/functions';
-import {useAppDispatch, useAppSelector} from '../../hooks/';
+import {useAppDispatch} from '../../hooks/';
 import {AppRoute, AuthorizationStatus} from '../../constants/constants';
 
 const initialActiveCardState:activeCardStateType = {
@@ -20,7 +20,6 @@ function App(): JSX.Element {
   const dispatch = useAppDispatch();
   dispatch(addOffers());
 
-  const offers = useAppSelector((state) => state.offers);
   const [activeCardState, setSelectedPointId] = useState(initialActiveCardState);
   const onCardItemHover: onCardItemHoverType = (newActiveCardState) => setSelectedPointId(newActiveCardState);
 
@@ -30,7 +29,6 @@ function App(): JSX.Element {
         <Route
           index element={
             <MainPage
-              offers={offers}
               selectedPointId={activeCardState.id}
               onCardItemHover={onCardItemHover}
             />
@@ -42,9 +40,7 @@ function App(): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesPage
-                offers={offers}
-              />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />
