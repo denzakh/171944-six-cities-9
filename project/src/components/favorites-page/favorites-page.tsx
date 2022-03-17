@@ -1,16 +1,9 @@
 import {Link} from 'react-router-dom';
 import NavUser from '../nav-user/nav-user';
 import FavoritesList from '../favorites-list/favorites-list';
-import OfferType from '../../types/offer';
 import LogoLink from '../logo-link/logo-link';
 
-type FavoritesPageProps = {
-  offers: OfferType[],
-}
-
-function FavoritesPage(props:FavoritesPageProps): JSX.Element {
-
-  const {offers} = props;
+function FavoritesPage(): JSX.Element {
 
   return (
     <div className="page">
@@ -28,7 +21,7 @@ function FavoritesPage(props:FavoritesPageProps): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList offers={offers} />
+            <FavoritesList />
           </section>
         </div>
       </main>

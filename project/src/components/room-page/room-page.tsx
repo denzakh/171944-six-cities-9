@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import {useParams, Navigate} from 'react-router-dom';
 import NavUser from '../nav-user/nav-user';
 import LogoLink from '../logo-link/logo-link';
-import offers from './../../mocks/offers';
+import {useAppSelector} from '../../hooks/';
 import OfferType, {Point} from '../../types/offer';
 import comments from './../../mocks/comments';
 import Form from '../form/form';
@@ -16,6 +16,7 @@ import CityNameType from '../../types/cityName';
 function RoomPage(): JSX.Element {
 
   const {id} = useParams();
+  const offers = useAppSelector((state) => state.offers);
 
   if(!id) {
     return <Navigate to='*' />;
