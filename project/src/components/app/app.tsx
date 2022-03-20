@@ -5,11 +5,12 @@ import Page404 from '../page404/page404';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
-import {addOffers} from '../../store/action';
+import {fetchOffers} from '../../store/api-actions';
 import PrivateRoute from '../private-route/private-route';
+import NoauthRoute from '../noauth-route/noauth-route';
 import {onCardItemHoverType, activeCardStateType} from '../../types/functions';
 import {useAppDispatch} from '../../hooks/';
-import {AppRoute, AuthorizationStatus} from '../../constants/constants';
+import {AppRoute} from '../../constants/constants';
 
 const initialActiveCardState:activeCardStateType = {
   id: undefined,
@@ -18,7 +19,7 @@ const initialActiveCardState:activeCardStateType = {
 function App(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  dispatch(addOffers());
+  dispatch(fetchOffers());
 
   const [activeCardState, setSelectedPointId] = useState(initialActiveCardState);
   const onCardItemHover: onCardItemHoverType = (newActiveCardState) => setSelectedPointId(newActiveCardState);
@@ -34,12 +35,19 @@ function App(): JSX.Element {
             />
           }
         />
-        <Route path={AppRoute.Login} element={<LoginPage />} />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <NoauthRoute>
+              <LoginPage />
+            </NoauthRoute>
+          }
+        />
         <Route path={AppRoute.RoomRoute} element={<RoomPage />} />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }

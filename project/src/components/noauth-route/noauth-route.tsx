@@ -1,20 +1,20 @@
 import {Navigate} from 'react-router-dom';
-import {useAppSelector} from '../../hooks/';
+import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../constants/constants';
 
-type PrivateRouteProps = {
+type NoauthRouteProps = {
   children: JSX.Element;
 };
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
+function NoauthRoute(props: NoauthRouteProps): JSX.Element {
   const {children} = props;
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
     authorizationStatus === AuthorizationStatus.Auth
-      ? children
-      : <Navigate to={AppRoute.Login} />
+      ? <Navigate to={AppRoute.Main} />
+      : children
   );
 }
 
-export default PrivateRoute;
+export default NoauthRoute;

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import NavUser from '../nav-user/nav-user';
 import LogoLink from '../logo-link/logo-link';
 import Cities from '../cities/cities';
+import Preloader from '../preloader/preloader';
 import CitiesPlaces from '../cities-places/cities-places';
 import CitiesEmpty from '../cities-empty/cities-empty';
 import {useAppSelector} from '../../hooks/';
@@ -43,6 +44,7 @@ function MainPage(props: MainPageProps): JSX.Element {
 
   return (
     <div className={getLinkClassName(filteredOffers.length === 0)}>
+      <Preloader />
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
