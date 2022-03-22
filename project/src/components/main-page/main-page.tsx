@@ -1,17 +1,17 @@
 import {useSearchParams} from 'react-router-dom';
+import {useEffect} from 'react';
 import classNames from 'classnames';
 import NavUser from '../nav-user/nav-user';
 import LogoLink from '../logo-link/logo-link';
 import Cities from '../cities/cities';
-import Preloader from '../preloader/preloader';
 import CitiesPlaces from '../cities-places/cities-places';
 import CitiesEmpty from '../cities-empty/cities-empty';
-import {useAppSelector} from '../../hooks/';
+import {useAppDispatch, useAppSelector} from '../../hooks/';
 import CityNameType from '../../types/cityName';
 import {DEFAULT_CITY} from '../../constants/cities';
 import {onCardItemHoverType} from '../../types/functions';
+import {fetchOffers} from '../../store/api-actions';
 import cities from '../../constants/cities';
-
 
 function getLinkClassName(isEmpty: boolean): string {
   return classNames({
@@ -35,6 +35,7 @@ function MainPage(props: MainPageProps): JSX.Element {
 
   const {selectedPointId, onCardItemHover} = props;
   const offers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
 
   const [searchParams] = useSearchParams();
   const activeCityParams = searchParams.get('city');
@@ -42,9 +43,12 @@ function MainPage(props: MainPageProps): JSX.Element {
 
   const filteredOffers = offers.filter((offer) => offer.city.name === activeCity);
 
+  useEffect(() => {
+    dispatch(fetchOffers());
+  }, [dispatch]);
+
   return (
     <div className={getLinkClassName(filteredOffers.length === 0)}>
-      <Preloader />
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
