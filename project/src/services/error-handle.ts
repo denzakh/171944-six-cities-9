@@ -4,6 +4,7 @@ import {ErrorType} from '../types/error';
 import {HTTP_CODE} from '../constants/constants';
 
 export const errorHandle = (error: ErrorType): void => {
+
   if (!request.isAxiosError(error)) {
     throw error;
   }

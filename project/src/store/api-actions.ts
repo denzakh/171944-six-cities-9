@@ -7,12 +7,16 @@ import {APIRoute, AuthorizationStatus} from '../constants/constants';
 import {AuthData, RoomData} from '../types/data';
 import {UserData} from '../types/user-data';
 import {errorHandle} from '../services/error-handle';
+<<<<<<< HEAD
 import {setLoading} from '../store/action';
+=======
+>>>>>>> master
 
 export const fetchOffers = createAsyncThunk(
   'data/fetchOffers',
   async () => {
     try {
+<<<<<<< HEAD
       store.dispatch(setLoading({isLoading: true}));
       const {data} = await api.get<OfferType[]>(APIRoute.Offers);
       store.dispatch(addOffers({offers: data}));
@@ -20,6 +24,12 @@ export const fetchOffers = createAsyncThunk(
     } catch (error) {
       errorHandle(error);
       store.dispatch(setLoading({isLoading: false}));
+=======
+      const {data} = await api.get<OfferType[]>(APIRoute.Offers);
+      store.dispatch(addOffers({offers: data}));
+    } catch (error) {
+      errorHandle(error);
+>>>>>>> master
     }
   },
 );
@@ -60,6 +70,7 @@ export const logoutAction = createAsyncThunk(
     } catch(error) {
       errorHandle(error);
     }
+<<<<<<< HEAD
   },
 );
 
@@ -77,5 +88,7 @@ export const fetchRoom = createAsyncThunk(
       errorHandle(error);
       store.dispatch(setLoading({isLoading: false}));
     }
+=======
+>>>>>>> master
   },
 );
