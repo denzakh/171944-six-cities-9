@@ -6,7 +6,7 @@ type NoauthRouteProps = {
   children: JSX.Element;
 };
 
-function NoauthRoute(props: NoauthRouteProps): JSX.Element {
+function NoAuthRoute(props: NoauthRouteProps): JSX.Element {
   const {children} = props;
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
@@ -17,4 +17,4 @@ function NoauthRoute(props: NoauthRouteProps): JSX.Element {
   );
 }
 
-export default NoauthRoute;
+export default NoAuthRoute;
