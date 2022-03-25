@@ -21,6 +21,7 @@ type RoomContentPropsType = {
 
 function RoomContent(props: RoomContentPropsType): JSX.Element {
 
+
   const {activeOffer, activeNearby, comments, hotelId} = props;
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const filtredOffers: OfferType[] = activeNearby;
