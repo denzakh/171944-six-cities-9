@@ -13,14 +13,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Offer = '/hotels',
-  Comments = '/comments'
-}
-
-export enum APIRoute {
-  Offers = '/hotels',
-  Login = '/login',
-  Logout = '/logout',
-  Offer = '/hotels'
+  Comments = '/comments',
 }
 
 export enum AuthorizationStatus {
