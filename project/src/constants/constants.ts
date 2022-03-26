@@ -12,6 +12,7 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Favorite = '/favorite',
   Offer = '/hotels',
   Comments = '/comments',
 }
@@ -45,3 +46,9 @@ export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyri
 export const TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
 export const AVATAR_SIZE = 74;
+
+export const COMMENTS_COUNT = 10;
+
+export const COMMENTS_LENGTH_MIN = 50;
+
+export const COMMENTS_LENGTH_MAX = 300;

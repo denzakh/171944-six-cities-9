@@ -1,11 +1,12 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {toast} from 'react-toastify';
 import {api, store} from '../store';
 import OfferType from '../types/offer';
 import CommentType from '../types/comment';
-import {addOffers, requireAuthorization, setOffer, setNearby, setComments, redirectToRoute} from './action';
+import {addOffers, requireAuthorization, setOffer, setNearby, setComments, redirectToRoute, setFavorites} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../constants/constants';
-import {AuthData, RoomData, SubmitCommentData} from '../types/data';
+import {AuthData, RoomData, SubmitCommentData, FavoriteData} from '../types/data';
 import {UserData} from '../types/user-data';
 import {errorHandle} from '../services/error-handle';
 import {setLoading} from '../store/action';
@@ -100,7 +101,6 @@ export const fetchNearby = createAsyncThunk(
   },
 );
 
-
 export const fetchComments = createAsyncThunk(
   'data/fetchComments',
   async ({id}: RoomData) => {
@@ -117,7 +117,6 @@ export const fetchComments = createAsyncThunk(
   },
 );
 
-
 export const submitComment = createAsyncThunk(
   'user/login',
   async ({comment, rating, hotelId, cb}: SubmitCommentData) => {
@@ -133,6 +132,48 @@ export const submitComment = createAsyncThunk(
     } catch(error) {
       errorHandle(error);
       store.dispatch(setLoading({isLoading: false}));
+    }
+  },
+);
+
+export const fetchFavorites = createAsyncThunk(
+  'data/fetchFavorites',
+  async () => {
+    try {
+      store.dispatch(setLoading({isLoading: true}));
+      store.dispatch(setFavorites({favorites: []}));
+      const {data} = await api.get<OfferType[]>(APIRoute.Favorite);
+      store.dispatch(setFavorites({favorites: data}));
+      store.dispatch(setLoading({isLoading: false}));
+    } catch (error) {
+      errorHandle(error);
+      store.dispatch(setLoading({isLoading: false}));
+    }
+  },
+);
+
+
+export const changeFavorite = createAsyncThunk(
+  'data/changeFavorite',
+  async ({hotelId, status, cb}: FavoriteData) => {
+    try {
+      const res = await api.post<OfferType>(`${APIRoute.Favorite}/${hotelId}/${status}`);
+
+      const resultText = status ?
+        'offer added to favorites' :
+        'offer removed from favorites';
+
+      if(res.data) {
+        toast.info(resultText);
+        store.dispatch(fetchOffers());
+        store.dispatch(fetchFavorites());
+        if(cb) {
+          cb();
+        }
+      }
+
+    } catch(error) {
+      errorHandle(error);
     }
   },
 );

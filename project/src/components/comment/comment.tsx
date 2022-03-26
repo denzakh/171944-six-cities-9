@@ -16,6 +16,12 @@ function Comment(props: CommentPropsType) {
 
   const width = `${rating * RATING_WIDTH_MULTIPLIER}%`;
 
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  const dateObj = new Date( Date.parse(date) );
+  const dateStr = `${monthNames[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -36,7 +42,7 @@ function Comment(props: CommentPropsType) {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{dateStr}</time>
       </div>
     </li>
   );
