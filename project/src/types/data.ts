@@ -6,3 +6,10 @@ export type AuthData = {
 export type RoomData = {
   id: string | undefined;
 };
+
+export type SubmitCommentData = {
+  comment: string,
+  rating: number,
+  hotelId: string,
+  cb: ()=> void,
+};

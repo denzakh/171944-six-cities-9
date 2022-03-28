@@ -4,7 +4,7 @@ function Preloader(): JSX.Element | null {
 
   return (
     <div className="preloader-5-wrap">
-      <div className="preloader-5"></div>
+      <div className="preloader-5" />
     </div>
   );
 }

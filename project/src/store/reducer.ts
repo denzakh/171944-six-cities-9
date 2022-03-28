@@ -1,6 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import OfferType from '../types/offer';
-import {addOffers, requireAuthorization, setOffer, setLoading} from './action';
+import CommentType from '../types/comment';
+import {addOffers, requireAuthorization, setOffer, setLoading, setNearby, setComments} from './action';
 import {AuthorizationStatus} from '../constants/constants';
 
 type initialStateType = {
@@ -8,6 +9,8 @@ type initialStateType = {
   authorizationStatus: AuthorizationStatus,
   activeOffer: Record<string, unknown>,
   isLoading: false | true,
+  nearby: OfferType[],
+  comments: CommentType[],
 }
 
 const initialState: initialStateType = {
@@ -15,6 +18,8 @@ const initialState: initialStateType = {
   authorizationStatus: AuthorizationStatus.Unknown,
   activeOffer: {},
   isLoading: false,
+  nearby: [],
+  comments: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -30,6 +35,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoading, (state, action) => {
       state.isLoading = action.payload.isLoading;
+    })
+    .addCase(setNearby, (state, action) => {
+      state.nearby = action.payload.nearby;
+    })
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload.comments;
     });
 });
 

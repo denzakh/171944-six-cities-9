@@ -5,13 +5,15 @@ export enum AppRoute {
   Favorites = '/favorites',
   Room = '/offer',
   RoomRoute = '/offer/:id',
+  Page404 = '/page404',
 }
 
 export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
-  Offer = '/hotels'
+  Offer = '/hotels',
+  Comments = '/comments',
 }
 
 export enum AuthorizationStatus {
@@ -41,3 +43,5 @@ export const STAR_NUMBER_ARR = [5, 4, 3, 2, 1];
 export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 export const TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+export const AVATAR_SIZE = 74;

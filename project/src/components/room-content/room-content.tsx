@@ -1,27 +1,34 @@
 import classNames from 'classnames';
 import NavUser from '../nav-user/nav-user';
 import LogoLink from '../logo-link/logo-link';
-import comments from '../../mocks/comments';
 import Form from '../form/form';
 import CardList from '../card-list/card-list';
 import Comment from '../comment/comment';
 import Map from '../map/map';
+import {useAppSelector} from '../../hooks/';
 import {getPointsfromoffers} from '../../constants/functions';
-import {RATING_WIDTH_MULTIPLIER} from '../../constants/constants';
+import {RATING_WIDTH_MULTIPLIER, AuthorizationStatus, AVATAR_SIZE} from '../../constants/constants';
 import CityNameType from '../../types/cityName';
 import OfferType, {Point} from '../../types/offer';
-
+import CommentType from '../../types/comment';
 
 type RoomContentPropsType = {
-  activeOffer: OfferType
+  activeOffer: OfferType,
+  activeNearby: OfferType[],
+  comments: CommentType[],
+  hotelId: string | undefined,
 };
 
 function RoomContent(props: RoomContentPropsType): JSX.Element {
 
-  const {activeOffer} = props;
 
-  const filtredOffers: OfferType[] = [];
-  const filtredOffersWithActiveOffer = [...filtredOffers, ...[activeOffer]];
+  const {activeOffer, activeNearby, comments, hotelId} = props;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const filtredOffers: OfferType[] = activeNearby;
+  const filtredOffersWithActiveOffer = [
+    ...filtredOffers,
+    ...[activeOffer],
+  ];
   const points: Point[] = getPointsfromoffers(filtredOffersWithActiveOffer);
   const activeCityName: CityNameType = activeOffer.city.name;
   const activeId = Number(activeOffer.id);
@@ -77,7 +84,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map((img:string)=>(
+              {images.map((img: string)=>(
                 <div className="property__image-wrapper" key={img}>
                   <img className="property__image" src={img} alt="studio" />
                 </div>
@@ -104,7 +111,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: width}} />
+                  <span style={{width}} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -142,8 +149,8 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
                     <img
                       className="property__avatar user__avatar"
                       src={avatarUrl}
-                      width={74}
-                      height={74}
+                      width={AVATAR_SIZE}
+                      height={AVATAR_SIZE}
                       alt="Host avatar"
                     />
                   </div>
@@ -173,7 +180,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
                     <Comment comment={comment} key={comment.id} />
                   ))}
                 </ul>
-                <Form />
+                {authorizationStatus === AuthorizationStatus.Auth && <Form hotelId={hotelId} />}
               </section>
             </div>
           </div>
@@ -188,7 +195,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={filtredOffers} />
+              <CardList offers={activeNearby} />
             </div>
           </section>
         </div>

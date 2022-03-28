@@ -1,4 +1,6 @@
 import {useState, ChangeEvent, FormEvent} from 'react';
+import {submitComment} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks/';
 import Star from '../star/star';
 import {STAR_NUMBER_ARR} from '../../constants/constants';
 
@@ -7,9 +9,15 @@ const initialState = {
   comment: '',
 };
 
-function Form() {
+type FormPropsType = {
+  hotelId: string | undefined,
+}
 
+function Form(props: FormPropsType): JSX.Element {
+
+  const {hotelId} = props;
   const [form, setForm] = useState(initialState);
+  const dispatch = useAppDispatch();
 
   function handleStar(starCount: number): void {
     setForm({stars: starCount, comment: form.comment});
@@ -22,6 +30,21 @@ function Form() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
+
+    const cb = () => {
+      setForm(initialState);
+    };
+
+    if(typeof hotelId === 'string') {
+      dispatch(
+        submitComment({
+          comment: form.comment,
+          rating: form.stars,
+          hotelId: hotelId,
+          cb: cb,
+        }),
+      );
+    }
   }
 
   return (
@@ -29,7 +52,12 @@ function Form() {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {STAR_NUMBER_ARR.map((starCount)=>(
-          <Star key={starCount} count={starCount} onChange={()=>{handleStar(starCount);}} />
+          <Star
+            key={starCount}
+            count={starCount}
+            onChange={()=>{handleStar(starCount);}}
+            checked={starCount === form.stars}
+          />
         ))}
       </div>
       <textarea
@@ -37,8 +65,8 @@ function Form() {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
         onChange={handleTextarea}
+        value={form.comment}
       />
 
       <div className="reviews__button-wrapper">

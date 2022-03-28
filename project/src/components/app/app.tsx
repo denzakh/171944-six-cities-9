@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Preloader from '../preloader/preloader';
@@ -37,7 +39,7 @@ function App(): JSX.Element {
     <>
       {isLoading && <Preloader />}
       <ToastContainer />
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             index element={
@@ -66,7 +68,7 @@ function App(): JSX.Element {
           />
           <Route path='*' element={<Page404 />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </>
   );
 }
