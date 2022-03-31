@@ -1,5 +1,7 @@
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
+import {useAppDispatch} from '../../hooks/';
+import {changeFavorite} from '../../store/api-actions';
 import OfferType from '../../types/offer';
 import {RATING_WIDTH_MULTIPLIER} from '../../constants/constants';
 
@@ -8,10 +10,12 @@ type PlaceCardPropsType = {
   url: string,
   onMouseEnter?: ()=>void,
   onMouseLeave?: ()=>void,
+  favoriteCb?: ()=> void,
 }
 
 function PlaceCard(props: PlaceCardPropsType): JSX.Element {
   const {
+    id,
     isFavorite,
     isPremium,
     rating,
@@ -24,6 +28,8 @@ function PlaceCard(props: PlaceCardPropsType): JSX.Element {
   const url = props.url;
   const width = `${rating * RATING_WIDTH_MULTIPLIER}%`;
 
+  const dispatch = useAppDispatch();
+
   const btnClassName = classNames({
     'button': true,
     'place-card__bookmark-button': true,
@@ -32,6 +38,16 @@ function PlaceCard(props: PlaceCardPropsType): JSX.Element {
 
   const onMouseEnter = props.onMouseEnter;
   const onMouseLeave = props.onMouseLeave;
+  const favoriteCb = props.favoriteCb;
+
+  const handleFavorite = () => {
+    const status = isFavorite ? 0 : 1;
+    dispatch(changeFavorite({
+      hotelId: id,
+      status,
+      cb: favoriteCb,
+    }));
+  };
 
   return (
     <article
@@ -61,7 +77,7 @@ function PlaceCard(props: PlaceCardPropsType): JSX.Element {
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={btnClassName} type="button">
+          <button className={btnClassName} type="button" onClick={handleFavorite}>
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>

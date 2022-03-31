@@ -4,12 +4,18 @@ export type AuthData = {
 };
 
 export type RoomData = {
-  id: string | undefined;
+  id: number | undefined;
 };
 
 export type SubmitCommentData = {
   comment: string,
   rating: number,
-  hotelId: string,
+  hotelId: number,
   cb: ()=> void,
+};
+
+export type FavoriteData = {
+  hotelId: number,
+  status: 1 | 0,
+  cb?: () => void,
 };

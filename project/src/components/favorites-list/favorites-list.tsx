@@ -1,20 +1,22 @@
+
 import FavoritesCard from '../place-card/place-card';
 import Offer from '../../types/offer';
-import {useAppSelector} from '../../hooks/';
 import {AppRoute} from '../../constants/constants';
 import {citiesObj} from '../../constants/cities';
-
 
 type CitiesType = {
   [locationName: string]: {
     [cityId: string]: Offer,
   },
 }
+type FavoritesListPropsType = {
+  offers: Offer[],
+}
 
-function FavoritesList(): JSX.Element {
+function FavoritesList(props: FavoritesListPropsType): JSX.Element {
 
-  const offers = useAppSelector((state) => state.offers);
-  const cities: CitiesType = citiesObj;
+  const {offers} = props;
+  const cities: CitiesType = {...{}, ...citiesObj};
 
   offers.forEach((offer: Offer): void => {
     if(offer.isFavorite) {

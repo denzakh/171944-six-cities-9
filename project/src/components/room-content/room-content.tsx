@@ -7,7 +7,7 @@ import Comment from '../comment/comment';
 import Map from '../map/map';
 import {useAppSelector} from '../../hooks/';
 import {getPointsfromoffers} from '../../constants/functions';
-import {RATING_WIDTH_MULTIPLIER, AuthorizationStatus, AVATAR_SIZE} from '../../constants/constants';
+import {RATING_WIDTH_MULTIPLIER, AuthorizationStatus, AVATAR_SIZE, COMMENTS_COUNT} from '../../constants/constants';
 import CityNameType from '../../types/cityName';
 import OfferType, {Point} from '../../types/offer';
 import CommentType from '../../types/comment';
@@ -16,13 +16,13 @@ type RoomContentPropsType = {
   activeOffer: OfferType,
   activeNearby: OfferType[],
   comments: CommentType[],
-  hotelId: string | undefined,
+  handleFavorite: ()=> void,
+  favoriteCb: ()=> void,
 };
 
 function RoomContent(props: RoomContentPropsType): JSX.Element {
 
-
-  const {activeOffer, activeNearby, comments, hotelId} = props;
+  const {activeOffer, activeNearby, comments, favoriteCb, handleFavorite} = props;
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const filtredOffers: OfferType[] = activeNearby;
   const filtredOffersWithActiveOffer = [
@@ -33,7 +33,24 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
   const activeCityName: CityNameType = activeOffer.city.name;
   const activeId = Number(activeOffer.id);
 
+  let sortedComments: CommentType[] = [...comments];
+
+  if(comments.length) {
+    sortedComments = sortedComments.sort(
+      (a,b)=>{
+        const aDate = new Date(a.date);
+        const bDate = new Date(b.date);
+        return +bDate.getTime() - +aDate.getTime();
+      },
+    );
+  }
+
+  if(comments.length > COMMENTS_COUNT) {
+    sortedComments = sortedComments.slice(0, COMMENTS_COUNT);
+  }
+
   const {
+    id,
     images,
     title,
     isFavorite,
@@ -102,7 +119,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={btnClassName} type="button">
+                <button className={btnClassName} type="button"  onClick={handleFavorite}>
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -117,7 +134,6 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
                 <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
-
                 <li className="property__feature property__feature--entire">
                   {type}
                 </li>
@@ -176,11 +192,11 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
                   </span>
                 </h2>
                 <ul className="reviews__list">
-                  {comments.map((comment)=>(
+                  {sortedComments.map((comment)=>(
                     <Comment comment={comment} key={comment.id} />
                   ))}
                 </ul>
-                {authorizationStatus === AuthorizationStatus.Auth && <Form hotelId={hotelId} />}
+                {authorizationStatus === AuthorizationStatus.Auth && <Form hotelId={id} />}
               </section>
             </div>
           </div>
@@ -195,7 +211,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={activeNearby} />
+              <CardList offers={activeNearby} favoriteCb={favoriteCb} />
             </div>
           </section>
         </div>

@@ -1,5 +1,7 @@
+/*eslint-disable */
 import {Link} from 'react-router-dom';
 import {useRef} from 'react';
+import {toast} from 'react-toastify';
 import LogoLink from '../logo-link/logo-link';
 import {loginAction} from  '../../store/api-actions';
 import {useAppDispatch} from '../../hooks/';
@@ -21,19 +23,55 @@ function LoginPage(): JSX.Element {
     e.preventDefault();
     const form = formRef.current;
 
+    const EMAIL_ERROR = 'Email is not valid';
+    const PASS_ERROR = 'Password is not valid';
+
     if(form) {
       const formData = new FormData(form);
 
-      const email = formData.get('email');
-      const passw = formData.get('password');
+      let email = formData.get('email');
+      let passw = formData.get('password');
+
+      const isEmail = (em: string): true | false => {
+        if(
+          em
+            .toLowerCase()
+            .includes('@')
+        ) {
+          return true;
+        }
+
+        toast.error(EMAIL_ERROR);
+        return false;
+      };
+
+      const isPassword = (pass: string): true | false => {
+        let msg = EMAIL_ERROR;
+
+        if(
+          /[\d]/.test(pass) &&
+          /[A-Za-z]/.test(pass)
+        ) {
+          return true;
+        }
+
+        toast.error(PASS_ERROR);
+        return false;
+      }
 
       if(email && passw) {
-        dispatch(
-          loginAction({
-            login: email.toString(),
-            password: passw.toString(),
-          }),
-        );
+        email = email.toString();
+        passw = passw.toString();
+
+        if(isEmail(email) && isPassword(passw)) {
+
+          dispatch(
+            loginAction({
+              login: email,
+              password: passw,
+            }),
+          );
+        }
       }
     }
   };
