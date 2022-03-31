@@ -6,11 +6,12 @@ import {onCardItemHoverType} from '../../types/functions';
 type CardListProps = {
   offers: OfferType[],
   onCardItemHover?: onCardItemHoverType,
+  favoriteCb?: ()=> void,
 };
 
 function CardList(props: CardListProps): JSX.Element {
 
-  const {offers, onCardItemHover} = props;
+  const {offers, onCardItemHover, favoriteCb} = props;
 
   const cards = offers.map((offer) => (
     <PlaceCard
@@ -19,6 +20,7 @@ function CardList(props: CardListProps): JSX.Element {
       url={`${AppRoute.Room}/${offer.id}`}
       onMouseEnter={()=>onCardItemHover && onCardItemHover({id: offer.id})}
       onMouseLeave={()=>onCardItemHover && onCardItemHover({id: undefined})}
+      favoriteCb={favoriteCb}
     />
   ));
 

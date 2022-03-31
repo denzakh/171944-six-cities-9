@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import OfferType from '../types/offer';
 import CommentType from '../types/comment';
-import {addOffers, requireAuthorization, setOffer, setLoading, setNearby, setComments} from './action';
+import {addOffers, requireAuthorization, setOffer, setLoading, setNearby, setComments, setFavorites } from './action';
 import {AuthorizationStatus} from '../constants/constants';
 
 type initialStateType = {
@@ -11,6 +11,7 @@ type initialStateType = {
   isLoading: false | true,
   nearby: OfferType[],
   comments: CommentType[],
+  favorites: OfferType[],
 }
 
 const initialState: initialStateType = {
@@ -20,6 +21,7 @@ const initialState: initialStateType = {
   isLoading: false,
   nearby: [],
   comments: [],
+  favorites: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +43,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setComments, (state, action) => {
       state.comments = action.payload.comments;
+    })
+    .addCase(setFavorites, (state, action) => {
+      state.favorites = action.payload.favorites;
     });
 });
 
