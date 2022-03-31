@@ -1,4 +1,3 @@
-/*eslint-disable */
 import {Link} from 'react-router-dom';
 import {useRef} from 'react';
 import {toast} from 'react-toastify';
