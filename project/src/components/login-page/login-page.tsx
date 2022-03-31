@@ -45,8 +45,6 @@ function LoginPage(): JSX.Element {
       };
 
       const isPassword = (pass: string): true | false => {
-        let msg = EMAIL_ERROR;
-
         if(
           /[\d]/.test(pass) &&
           /[A-Za-z]/.test(pass)
@@ -56,7 +54,7 @@ function LoginPage(): JSX.Element {
 
         toast.error(PASS_ERROR);
         return false;
-      }
+      };
 
       if(email && passw) {
         email = email.toString();
