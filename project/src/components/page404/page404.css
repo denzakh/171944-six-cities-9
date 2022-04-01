@@ -1,0 +1,8 @@
+.page404__page {
+  padding: 50px 0;
+  min-height: 90vh;
+  background-color: transparent;
+}
+.page404__link {
+	text-decoration: underline;
+}

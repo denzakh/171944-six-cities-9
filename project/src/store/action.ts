@@ -17,6 +17,4 @@ export const setComments = createAction<{comments: CommentType[]}>('data/setComm
 
 export const redirectToRoute = createAction<AppRoute>('route/redirectToRoute');
 
-export const addComment = createAction<{comment: CommentType}>('data/addComment');
-
 export const setFavorites = createAction<{favorites: OfferType[]}>('data/loadFavorites');

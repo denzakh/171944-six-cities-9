@@ -6,7 +6,7 @@ import CardList from '../card-list/card-list';
 import Comment from '../comment/comment';
 import Map from '../map/map';
 import {useAppSelector} from '../../hooks/';
-import {getPointsfromoffers} from '../../constants/functions';
+import {getPointsFromOffers} from '../../constants/functions';
 import {RATING_WIDTH_MULTIPLIER, AuthorizationStatus, AVATAR_SIZE, COMMENTS_COUNT} from '../../constants/constants';
 import CityNameType from '../../types/cityName';
 import OfferType, {Point} from '../../types/offer';
@@ -29,7 +29,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
     ...filtredOffers,
     ...[activeOffer],
   ];
-  const points: Point[] = getPointsfromoffers(filtredOffersWithActiveOffer);
+  const points: Point[] = getPointsFromOffers(filtredOffersWithActiveOffer);
   const activeCityName: CityNameType = activeOffer.city.name;
   const activeId = Number(activeOffer.id);
 

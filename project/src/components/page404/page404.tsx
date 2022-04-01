@@ -1,19 +1,14 @@
+import './page404.css';
+
 function Page404(): JSX.Element {
 
   return (
-    <div className="page" style={{
-      'padding': '50px 0',
-      'minHeight': '90vh',
-      'backgroundColor': 'transparent',
-    }}
-    >
+    <div className="page404__page">
       <div className="container">
         <h1>Ошибка 404</h1>
-        <p>Страница не найдена.&nbsp;
-          <a href="/" style={{
-            'textDecoration': 'underline',
-          }}
-          >
+        <p>Страница не найдена.&nbsp;</p>
+        <p>
+          <a href="/" className="page404__link">
             Перейти на главную
           </a>
         </p>

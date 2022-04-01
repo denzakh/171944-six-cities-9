@@ -1,5 +1,5 @@
 import leaflet from 'leaflet';
-import {getPointsfromoffersType} from '../types/functions';
+import {getPointsFromOffersType} from '../types/functions';
 
 export const getLeafletIcon = (iconUrl: string) => (
   leaflet.icon({
@@ -9,7 +9,7 @@ export const getLeafletIcon = (iconUrl: string) => (
   })
 );
 
-export const getPointsfromoffers: getPointsfromoffersType = (offers) => (
+export const getPointsFromOffers: getPointsFromOffersType = (offers) => (
   offers.map((offer) => ({
     id: offer.id,
     title: offer.title,

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

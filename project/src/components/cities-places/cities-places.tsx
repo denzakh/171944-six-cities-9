@@ -6,7 +6,7 @@ import Filter from '../../types/filter';
 import OfferType, {Point} from '../../types/offer';
 import CityNameType from '../../types/cityName';
 import {onCardItemHoverType} from '../../types/functions';
-import {getPointsfromoffers} from '../../constants/functions';
+import {getPointsFromOffers} from '../../constants/functions';
 
 type CitiesPlacesPropsType = {
   offers: OfferType[];
@@ -64,7 +64,7 @@ function CitiesPlaces(props: CitiesPlacesPropsType): JSX.Element {
     });
   }
 
-  const points: Point[] = getPointsfromoffers(offers);
+  const points: Point[] = getPointsFromOffers(offers);
   const filterMenu = Object.values(Filter);
 
   return (
