@@ -1,3 +1,4 @@
+import {memo} from 'react';
 import PlaceCard from '../place-card/place-card';
 import OfferType from '../../types/offer';
 import {AppRoute} from '../../constants/constants';
@@ -26,4 +27,21 @@ function CardList(props: CardListProps): JSX.Element {
 
   return <div className="cities__places-list places__list tabs__content">{cards}</div>;
 }
-export default CardList;
+
+export default memo(CardList, (prevProps: CardListProps, nextProps: CardListProps) => {
+
+  function isOffersEqual(prevOffers: OfferType[], nextOffers: OfferType[]): boolean {
+    if(prevOffers !== nextOffers) {
+      return false;
+    }
+
+    return prevOffers.every((prevItem, index: number)=>(
+      prevItem.id === nextOffers[index].id &&
+      prevItem.isFavorite === nextOffers[index].isFavorite
+    ));
+  }
+
+  return isOffersEqual(prevProps.offers, nextProps.offers);
+});
+
+export const CardListPure = CardList;

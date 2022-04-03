@@ -10,10 +10,13 @@ export const UserSlice = createSlice({
   name: NameSpace.user,
   initialState,
   reducers: {
-    requireAuthorization: (state, action) => {
-      state.authorizationStatus = action.payload;
+    successAuthorization: (state) => {
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    },
+    failAuthorization: (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     },
   },
 });
 
-export const {requireAuthorization} = UserSlice.actions;
+export const {successAuthorization, failAuthorization} = UserSlice.actions;

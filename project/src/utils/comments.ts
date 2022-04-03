@@ -1,4 +1,6 @@
-const comments = [
+import CommentType from '../types/comment';
+
+const comments: CommentType[] = [
   {
     'id': 1,
     'user': {

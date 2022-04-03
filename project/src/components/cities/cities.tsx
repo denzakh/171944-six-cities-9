@@ -24,7 +24,12 @@ function Cities(props: CitiesPropsType) {
       <ul className="locations__list tabs__list">
         {cities.map((city)=>(
           <li className="locations__item" key={city}>
-            <Link className={getLinkClassName(city, activeCity)} to={`/?city=${city}`}>
+            <Link
+              className={getLinkClassName(city, activeCity)}
+              to={`/?city=${city}`}
+              data-testid="city"
+              title={city}
+            >
               <span>{city}</span>
             </Link>
           </li>

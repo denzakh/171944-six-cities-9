@@ -54,6 +54,7 @@ function PlaceCard(props: PlaceCardPropsType): JSX.Element {
       className="cities__place-card place-card"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      data-testid="place-card"
     >
       {!!isPremium && (
         <div className="place-card__mark">
