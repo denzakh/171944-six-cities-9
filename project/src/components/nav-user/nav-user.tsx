@@ -4,7 +4,7 @@ import {useAppSelector, useAppDispatch} from '../../hooks/';
 import {AppRoute, AuthorizationStatus} from '../../constants/constants';
 
 function NavUser(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const dispatch = useAppDispatch();
 
   const logoutHandle = (e: React.SyntheticEvent<HTMLAnchorElement>): void => {

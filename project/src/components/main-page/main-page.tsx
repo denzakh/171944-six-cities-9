@@ -34,7 +34,7 @@ function isCity(citiesArr: CityNameType[], city: string | null): city is CityNam
 function MainPage(props: MainPageProps): JSX.Element {
 
   const {selectedPointId, onCardItemHover} = props;
-  const offers = useAppSelector((state) => state.offers);
+  const {offers} = useAppSelector(({DATA}) => DATA);
   const dispatch = useAppDispatch();
 
   const [searchParams] = useSearchParams();

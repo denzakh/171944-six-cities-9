@@ -3,13 +3,16 @@ import {toast} from 'react-toastify';
 import {api, store} from '../store';
 import OfferType from '../types/offer';
 import CommentType from '../types/comment';
-import {addOffers, requireAuthorization, setOffer, setNearby, setComments, redirectToRoute, setFavorites} from './action';
+import {addOffers, setOffer, setNearby, setComments, setFavorites, setLoading} from './data-slice/data-slice';
+import {requireAuthorization} from './user-slice/user-slice';
+import {redirectToRoute} from './action';
+
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../constants/constants';
 import {AuthData, RoomData, SubmitCommentData, FavoriteData} from '../types/data';
 import {UserData} from '../types/user-data';
 import {errorHandle} from '../services/error-handle';
-import {setLoading} from '../store/action';
+import {} from '../store/action';
 
 export const fetchOffers = createAsyncThunk(
   'data/fetchOffers',

@@ -8,7 +8,7 @@ type NoauthRouteProps = {
 
 function NoAuthRoute(props: NoauthRouteProps): JSX.Element {
   const {children} = props;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
 
   return (
     authorizationStatus === AuthorizationStatus.Auth

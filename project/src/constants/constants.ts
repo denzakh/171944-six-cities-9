@@ -29,6 +29,11 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
+export enum NameSpace {
+  data = 'DATA',
+  user = 'USER',
+}
+
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 

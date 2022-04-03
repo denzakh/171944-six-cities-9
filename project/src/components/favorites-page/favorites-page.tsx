@@ -10,7 +10,7 @@ import Offer from '../../types/offer';
 
 function FavoritesPage(): JSX.Element {
 
-  const offers = useAppSelector<Offer[]>((state) => state.favorites);
+  const {offers} = useAppSelector<{offers: Offer[]}>(({DATA}) => DATA);
 
   const dispatch = useAppDispatch();
   useEffect(() => {

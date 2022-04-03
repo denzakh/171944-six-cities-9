@@ -33,7 +33,7 @@ function App(): JSX.Element {
   const [activeCardState, setSelectedPointId] = useState(initialActiveCardState);
   const onCardItemHover: onCardItemHoverType = (newActiveCardState) => setSelectedPointId(newActiveCardState);
 
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const {isLoading} = useAppSelector(({DATA}) => DATA);
 
   return (
     <>

@@ -14,7 +14,7 @@ import CommentType from '../../types/comment';
 
 type RoomContentPropsType = {
   activeOffer: OfferType,
-  activeNearby: OfferType[],
+  nearby: OfferType[],
   comments: CommentType[],
   handleFavorite: ()=> void,
   favoriteCb: ()=> void,
@@ -22,9 +22,9 @@ type RoomContentPropsType = {
 
 function RoomContent(props: RoomContentPropsType): JSX.Element {
 
-  const {activeOffer, activeNearby, comments, favoriteCb, handleFavorite} = props;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const filtredOffers: OfferType[] = activeNearby;
+  const {activeOffer, nearby, comments, favoriteCb, handleFavorite} = props;
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const filtredOffers: OfferType[] = nearby;
   const filtredOffersWithActiveOffer = [
     ...filtredOffers,
     ...[activeOffer],
@@ -211,7 +211,7 @@ function RoomContent(props: RoomContentPropsType): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardList offers={activeNearby} favoriteCb={favoriteCb} />
+              <CardList offers={nearby} favoriteCb={favoriteCb} />
             </div>
           </section>
         </div>

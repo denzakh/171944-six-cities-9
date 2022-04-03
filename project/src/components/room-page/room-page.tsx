@@ -16,9 +16,9 @@ function isIdNumber(id: number): boolean {
 
 function RoomPage(): JSX.Element | null {
 
-  const activeOffer = useAppSelector((state) => state.activeOffer) as OfferType;
-  const activeNearby = useAppSelector((state) => state.nearby) as OfferType[];
-  const comments = useAppSelector((state) => state.comments) as CommentType[];
+  const activeOffer = useAppSelector(({DATA}) => DATA.activeOffer) as OfferType;
+  const nearby = useAppSelector(({DATA}) => DATA.nearby) as OfferType[];
+  const comments = useAppSelector(({DATA}) => DATA.comments) as CommentType[];
   const dispatch = useAppDispatch();
 
   const {id} = useParams();
@@ -51,7 +51,7 @@ function RoomPage(): JSX.Element | null {
     return (
       <RoomContent
         activeOffer={activeOffer}
-        activeNearby={activeNearby}
+        nearby={nearby}
         comments={comments}
         favoriteCb={reFetch}
         handleFavorite={handleFavorite}
