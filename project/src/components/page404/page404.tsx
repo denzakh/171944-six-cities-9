@@ -5,11 +5,11 @@ function Page404(): JSX.Element {
   return (
     <div className="page404__page">
       <div className="container">
-        <h1>Ошибка 404</h1>
-        <p>Страница не найдена.&nbsp;</p>
+        <h1>Error 404</h1>
+        <p>Page not found.&nbsp;</p>
         <p>
           <a href="/" className="page404__link">
-            Перейти на главную
+            Go to main
           </a>
         </p>
       </div>
