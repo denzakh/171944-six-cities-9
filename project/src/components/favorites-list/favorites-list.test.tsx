@@ -1,3 +1,4 @@
+
 import {Routes, Route} from 'react-router-dom';
 import thunk from 'redux-thunk';
 import {createMemoryHistory, History} from 'history';
@@ -5,30 +6,22 @@ import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
-import {CardListPure} from './card-list';
+import FavoritesList from './favorites-list';
 import OfferType from '../../types/offer';
 import {offers} from '../../utils/mocs';
 
-type CardListPropsType = {
+type FavoritesListPropsType = {
   offers: OfferType[],
-  onCardItemHover?: ()=> void,
-  favoriteCb?: ()=> void,
-};
+}
 
-const cardListProps: CardListPropsType = {
-  offers: offers,
-  onCardItemHover: jest.fn(),
-  favoriteCb: jest.fn(),
-};
-
-const renderCardList = (store: MockStore, history: History, props: CardListPropsType) => {
+const renderFavoritesList = (store: MockStore, history: History, props: FavoritesListPropsType) => {
   render (
     <Provider store={store}>
       <HistoryRouter history={history}>
         <Routes>
           <Route
             path='*'
-            element={<CardListPure {...props} />}
+            element={<FavoritesList {...props} />}
           />
         </Routes>
       </HistoryRouter>
@@ -41,12 +34,19 @@ const mockStore = configureMockStore(middlewares);
 const history = createMemoryHistory();
 const store = mockStore({});
 
-describe('Component: CardList', () => {
+const favoriteOffers = offers.filter((item)=>item.isFavorite);
+const favoritesListExpectlength = favoriteOffers.length;
+
+const favoritesListProps = {
+  offers: favoriteOffers,
+};
+
+describe('Component: FavoritesList', () => {
   describe('should render correctly', () => {
 
     it('props data', () => {
-      renderCardList(store, history, cardListProps);
-      expect(screen.getAllByTestId('place-card').length).toBe(offers.length);
+      renderFavoritesList(store, history, favoritesListProps);
+      expect(screen.getAllByTestId('place-card').length).toBe(favoritesListExpectlength);
     });
   });
 });

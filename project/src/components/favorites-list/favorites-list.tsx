@@ -1,4 +1,3 @@
-
 import FavoritesCard from '../place-card/place-card';
 import Offer from '../../types/offer';
 import {AppRoute} from '../../constants/constants';
