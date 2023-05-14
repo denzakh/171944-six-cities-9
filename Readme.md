@@ -1,6 +1,9 @@
-# Личный проект «Шесть городов»
+# Проект «Шесть городов»
 
-Репозиторий создан для обучения на профессиональном онлайн‑курсе «[React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru) (2022). 
+Репозиторий создан для обучения на профессиональном онлайн‑курсе  
+«[React. Разработка сложных клиентских приложений](https://htmlacademy.ru/intensive/react)» от [HTML Academy](https://htmlacademy.ru) (2022). 
+
+[Сертификат о прохождении](https://drive.google.com/file/d/17kUo9dADEzVGwk8qD0ZFu5u7xnhfVR_3/view?usp=share_link)
 
 ## Основные технологии и навыки
 
