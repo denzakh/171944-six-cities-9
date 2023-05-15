@@ -53,7 +53,7 @@ function RoomPage(): JSX.Element | null {
       dispatch(fetchNearby({id: numberId}));
       dispatch(fetchComments({id: numberId}));
     }
-  }, []);
+  }, [dispatch, numberId]);
 
   if (!isIdNumber(numberId) || isEmptyObj(activeOffer)) {
     return null;
