@@ -43,7 +43,7 @@ function RoomPage(): JSX.Element | null {
 
   useEffect(() => {
     reFetch();
-  }, []);
+  }, [reFetch]);
 
   if(!isIdNumber(numberId) || isEmptyObj(activeOffer)) {
     return null;
