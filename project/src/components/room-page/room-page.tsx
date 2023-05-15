@@ -1,7 +1,12 @@
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import RoomContent from '../room-content/room-content';
-import {fetchRoom, fetchNearby, fetchComments, changeFavorite} from '../../store/api-actions';
+import {
+  fetchRoom,
+  fetchNearby,
+  fetchComments,
+  changeFavorite
+} from '../../store/api-actions';
 import {useAppSelector, useAppDispatch} from '../../hooks/';
 import OfferType from '../../types/offer';
 import CommentType from '../../types/comment';
@@ -15,7 +20,6 @@ function isIdNumber(id: number): boolean {
 }
 
 function RoomPage(): JSX.Element | null {
-
   const activeOffer = useAppSelector(({DATA}) => DATA.activeOffer) as OfferType;
   const nearby = useAppSelector(({DATA}) => DATA.nearby) as OfferType[];
   const comments = useAppSelector(({DATA}) => DATA.comments) as CommentType[];
@@ -25,7 +29,7 @@ function RoomPage(): JSX.Element | null {
   const numberId = Number(id);
 
   const reFetch = (): void => {
-    if(isIdNumber(numberId)) {
+    if (isIdNumber(numberId)) {
       dispatch(fetchRoom({id: numberId}));
       dispatch(fetchNearby({id: numberId}));
       dispatch(fetchComments({id: numberId}));
@@ -34,18 +38,24 @@ function RoomPage(): JSX.Element | null {
 
   const handleFavorite = () => {
     const status = activeOffer.isFavorite ? 0 : 1;
-    dispatch(changeFavorite({
-      hotelId: numberId,
-      status,
-      cb: reFetch,
-    }));
+    dispatch(
+      changeFavorite({
+        hotelId: numberId,
+        status,
+        cb: reFetch
+      })
+    );
   };
 
   useEffect(() => {
-    reFetch();
-  }, [reFetch]);
+    if (isIdNumber(numberId)) {
+      dispatch(fetchRoom({id: numberId}));
+      dispatch(fetchNearby({id: numberId}));
+      dispatch(fetchComments({id: numberId}));
+    }
+  }, []);
 
-  if(!isIdNumber(numberId) || isEmptyObj(activeOffer)) {
+  if (!isIdNumber(numberId) || isEmptyObj(activeOffer)) {
     return null;
   } else {
     return (
