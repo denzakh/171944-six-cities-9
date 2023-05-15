@@ -5,7 +5,7 @@ import {
   fetchRoom,
   fetchNearby,
   fetchComments,
-  changeFavorite
+  changeFavorite,
 } from '../../store/api-actions';
 import {useAppSelector, useAppDispatch} from '../../hooks/';
 import OfferType from '../../types/offer';
@@ -42,8 +42,8 @@ function RoomPage(): JSX.Element | null {
       changeFavorite({
         hotelId: numberId,
         status,
-        cb: reFetch
-      })
+        cb: reFetch,
+      }),
     );
   };
 
